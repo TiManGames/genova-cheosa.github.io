@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Fanculo Tutti O Fanculo Toti</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Genova Che Osa | Trappola Per Toti</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes"
+    />
     <style>
-      html, body {
+      html,
+      body {
         width: 100%;
         height: 100%;
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background: #231F20;
+        background: #231f20;
       }
       #unity-canvas {
         width: 100%;
         height: 100%;
-        background: #231F20;
+        background: #231f20;
         display: block;
       }
     </style>
@@ -26,17 +30,38 @@
     <canvas id="unity-canvas" tabindex="-1"></canvas>
     <script src="Build/Build.loader.js"></script>
     <script>
-      window.addEventListener('load', function() {
+      var unityInstance = null;
+
+      function lockOrientation() {
+        if (screen.orientation && screen.orientation.lock) {
+          // Lock to landscape mode
+          screen.orientation.lock("landscape").catch(function (error) {
+            console.log("Failed to lock orientation:", error);
+          });
+        }
+      }
+
+      function unlockOrientation() {
+        if (screen.orientation && screen.orientation.unlock) {
+          screen.orientation.unlock().catch(function (error) {
+            console.log("Failed to unlock orientation:", error);
+          });
+        }
+      }
+      
+      window.addEventListener("load", function () {
         createUnityInstance(document.querySelector("#unity-canvas"), {
           dataUrl: "Build/Build.data.unityweb",
           frameworkUrl: "Build/Build.framework.js.unityweb",
           codeUrl: "Build/Build.wasm.unityweb",
           streamingAssetsUrl: "StreamingAssets",
           companyName: "Genova Che Osa",
-          productName: "Fanculo Tutti O Fanculo Toti",
+          productName: "Trappola Per Toti",
           productVersion: "1.0",
           // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
           // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+        }).then(function (instance) {
+          unityInstance = instance;
         });
       });
     </script>
