@@ -35,20 +35,16 @@
       function lockOrientation() {
         if (screen.orientation && screen.orientation.lock) {
           // Lock to landscape mode
-          screen.orientation.lock("landscape").catch(function (error) {
-            console.log("Failed to lock orientation:", error);
-          });
+          screen.orientation.lock("landscape");
         }
       }
 
       function unlockOrientation() {
         if (screen.orientation && screen.orientation.unlock) {
-          screen.orientation.unlock().catch(function (error) {
-            console.log("Failed to unlock orientation:", error);
-          });
+          screen.orientation.unlock();
         }
       }
-      
+
       window.addEventListener("load", function () {
         createUnityInstance(document.querySelector("#unity-canvas"), {
           dataUrl: "Build/Build.data.unityweb",
@@ -61,6 +57,7 @@
           // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
           // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
         }).then(function (instance) {
+          lockOrientation();
           unityInstance = instance;
         });
       });
